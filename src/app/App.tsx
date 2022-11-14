@@ -1,13 +1,17 @@
 import React from 'react';
 
-import './App.css';
-import { Button } from '../common/components/button/Button';
+import { Header } from '../common/components/header/Header';
+import { Pages } from '../common/components/pages/Pages';
 import { ReturnComponentType } from '../common/types/ReturnComponentType';
+
+import style from './App.module.css';
 
 const App = (): ReturnComponentType => {
    return (
-      <div className="App">
-         <Button variant="buttonOutlined">Button</Button>
+      <div className={style.app}>
+         <Header />
+         <h3>Выбери направление</h3>
+         <Pages />
       </div>
    );
 };
