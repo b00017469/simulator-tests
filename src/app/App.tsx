@@ -10,7 +10,6 @@ const App = (): ReturnComponentType => {
    return (
       <div className={style.app}>
          <Header />
-         <h3>Выбери направление</h3>
          <Pages />
       </div>
    );

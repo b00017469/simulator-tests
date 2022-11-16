@@ -8,6 +8,7 @@ import { ReturnComponentType } from '../../types/ReturnComponentType';
 export const ChooseTest = (): ReturnComponentType => {
    return (
       <div className={style.icons}>
+         <h3>Выбери направление</h3>
          <div>
             <img src={frontend} alt="frontend" />
          </div>
