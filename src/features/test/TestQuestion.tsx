@@ -1,21 +1,26 @@
 import React from 'react';
 
+import { useDispatch } from 'react-redux';
+
 import { ReturnComponentType } from '../../common/types/ReturnComponentType';
+
+import { setIndexesOfUserAnswers } from './testReducer';
 
 type Props = {
    questionText: string;
    answerOptions: string[];
-   defaultChecked: boolean;
+   idQuestion: string;
 };
 
 export const TestQuestion = ({
    questionText,
    answerOptions,
-   defaultChecked,
+   idQuestion,
 }: Props): ReturnComponentType => {
-   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-   const onChangeCheck = (obj: any): void => {
-      // console.log(obj);
+   const dispatch = useDispatch();
+
+   const onChangeCheck = (index: number, isChecked: boolean): void => {
+      if (isChecked) dispatch(setIndexesOfUserAnswers(idQuestion, index));
    };
 
    return (
@@ -26,10 +31,7 @@ export const TestQuestion = ({
                <li key={answer}>
                   <input
                      type="checkbox"
-                     checked={defaultChecked}
-                     onChange={event =>
-                        onChangeCheck({ answer, index, selected: event.currentTarget.checked })
-                     }
+                     onChange={event => onChangeCheck(index, event.currentTarget.checked)}
                   />
                   <span>{answer}</span>
                </li>
