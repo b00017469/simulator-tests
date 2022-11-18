@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 
 import { BackendTest } from '../../../features/test/BackendTest';
 import { ReturnComponentType } from '../../types/ReturnComponentType';
@@ -13,7 +13,7 @@ export const Pages = (): ReturnComponentType => {
    return (
       <div>
          <Routes>
-            <Route path={PATH.ROOT} element={<ChooseTest />} />
+            <Route path={PATH.ROOT} element={<Navigate to={PATH.MAIN} />} />
             <Route path={PATH.MAIN} element={<ChooseTest />} />
             <Route path={PATH.PAGE_NOT_FOUND} element={<PageNotFound />} />
             <Route path={PATH.BACKEND_TEST} element={<BackendTest />} />

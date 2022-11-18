@@ -1,0 +1,22 @@
+.navLink {
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 14px;
+  color: black;
+  text-align: left;
+  text-decoration: unset;
+  display: inline-block;
+  margin: 24px 0 0 0;
+
+
+  .arrow {
+    width: 14px;
+    height: 9px;
+    margin-right: 10px;
+  }
+
+
+  .back {
+    margin: 0 auto;
+  }
+}

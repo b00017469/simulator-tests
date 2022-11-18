@@ -4,5 +4,5 @@ export enum PATH {
    PAGE_NOT_FOUND = '/error',
    FRONTEND_TEST = '/frontend_test',
    BACKEND_TEST = '/backend_test',
-   BAD_PATH = '*',
+   BAD_PATH = '/*',
 }
