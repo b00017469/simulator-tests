@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import { ReturnComponentType } from '../../common/types/ReturnComponentType';
 
-import { setIndexesOfUserAnswers } from './testReducer';
+import { Answers, setIndexesOfUserAnswers } from './testReducer';
 
 type Props = {
    questionText: string;
@@ -19,8 +19,12 @@ export const TestQuestion = ({
 }: Props): ReturnComponentType => {
    const dispatch = useDispatch();
 
-   const onChangeCheck = (index: number, isChecked: boolean): void => {
-      if (isChecked) dispatch(setIndexesOfUserAnswers(idQuestion, index));
+   const answers: Answers = { 0: false, 1: false, 2: false, 3: false };
+
+   const onChangeCheck = (index: 0 | 1 | 2 | 3, isChecked: boolean): void => {
+      answers[index] = isChecked;
+
+      dispatch(setIndexesOfUserAnswers(idQuestion, answers));
    };
 
    return (
@@ -31,7 +35,9 @@ export const TestQuestion = ({
                <li key={answer}>
                   <input
                      type="checkbox"
-                     onChange={event => onChangeCheck(index, event.currentTarget.checked)}
+                     onChange={event =>
+                        onChangeCheck(index as 0 | 1 | 2 | 3, event.currentTarget.checked)
+                     }
                   />
                   <span>{answer}</span>
                </li>

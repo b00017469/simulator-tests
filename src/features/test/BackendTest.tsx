@@ -69,15 +69,12 @@ export const BackendTest = (): ReturnComponentType => {
             answerOptions={currentQuestion.answerOptions}
             idQuestion={currentQuestion.id}
          />
+
          <div>
             <Button variant="buttonOutlined" onClick={skipQuestion}>
                Пропустить вопрос
             </Button>
-            <Button
-               variant="buttonContained"
-               onClick={answerHandler}
-               disabled={currentQuestion.indexesOfUserAnswers.length < 1}
-            >
+            <Button variant="buttonContained" onClick={answerHandler}>
                Ответить
             </Button>
          </div>

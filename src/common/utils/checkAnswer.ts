@@ -1,11 +1,15 @@
-export const checkAnswer = (right: number[], wrong: number[]): boolean => {
-   if (wrong.length === right.length) {
-      for (let i = 0; right.length > i; i += 1) {
-         if (!wrong.includes(right[i])) return false;
-      }
+import { Answers } from '../../features/test/testReducer';
 
-      return true;
-   }
+export const checkAnswer = (rightAnswers: Answers, usersUnswers: Answers): boolean => {
+   return JSON.stringify(rightAnswers) === JSON.stringify(usersUnswers);
 
-   return false;
+   // if (wrong.length === right.length) {
+   //    for (let i = 0; right.length > i; i += 1) {
+   //       if (!wrong.includes(right[i])) return false;
+   //    }
+   //
+   //    return true;
+   // }
+   //
+   // return false;
 };
