@@ -2,29 +2,30 @@ import React from 'react';
 
 import { useDispatch } from 'react-redux';
 
+import { Button } from '../../common/components/button/Button';
 import { ReturnComponentType } from '../../common/types/ReturnComponentType';
 
-import { Answers, setIndexesOfUserAnswers } from './testReducer';
+import { setIndexesOfUserAnswers } from './testReducer';
 
 type Props = {
    questionText: string;
    answerOptions: string[];
    idQuestion: string;
+   skipQuestion: () => void;
+   answerHandler: () => void;
 };
 
 export const TestQuestion = ({
    questionText,
    answerOptions,
    idQuestion,
+   skipQuestion,
+   answerHandler,
 }: Props): ReturnComponentType => {
    const dispatch = useDispatch();
 
-   const answers: Answers = { 0: false, 1: false, 2: false, 3: false };
-
    const onChangeCheck = (index: 0 | 1 | 2 | 3, isChecked: boolean): void => {
-      answers[index] = isChecked;
-
-      dispatch(setIndexesOfUserAnswers(idQuestion, answers));
+      dispatch(setIndexesOfUserAnswers(idQuestion, { [index]: isChecked }));
    };
 
    return (
@@ -43,6 +44,15 @@ export const TestQuestion = ({
                </li>
             ))}
          </ul>
+
+         <div>
+            <Button variant="outlined" onClick={skipQuestion}>
+               Пропустить вопрос
+            </Button>
+            <Button variant="contained" onClick={answerHandler}>
+               Ответить
+            </Button>
+         </div>
       </div>
    );
 };

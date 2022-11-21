@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
 
 import { BackTo } from '../../common/components/backTo/BackTo';
-import { Button } from '../../common/components/button/Button';
 import { useAppSelector } from '../../common/hooks/useAppSelector';
 import { ReturnComponentType } from '../../common/types/ReturnComponentType';
 import { checkAnswer } from '../../common/utils/checkAnswer';
 
+import { ResultsOfTest } from './ResultsOfTest';
 import { TestQuestion } from './TestQuestion';
-import { setCheckedAnswer, setIsAnswer } from './testReducer';
+import { getResult, setCheckedAnswer, setIsAnswer } from './testReducer';
 
 export const BackendTest = (): ReturnComponentType => {
    const dispatch = useDispatch();
@@ -25,6 +25,7 @@ export const BackendTest = (): ReturnComponentType => {
    console.log(indexesOfUnansweredQuestions);
    const countOfQuestions = questions.length;
    const currentQuestion = questions[currentIndex];
+   const isTestEnded = indexesOfUnansweredQuestions.length < 1;
 
    const skipQuestion = (): void => {
       nextQuestion();
@@ -42,7 +43,6 @@ export const BackendTest = (): ReturnComponentType => {
       dispatch(setIsAnswer(currentQuestion.id, true));
 
       nextQuestion();
-      if (indexesOfUnansweredQuestions.length <= 1) alert('finish');
    };
 
    const nextQuestion = (): void => {
@@ -56,28 +56,32 @@ export const BackendTest = (): ReturnComponentType => {
    };
 
    console.log(questions);
+   useEffect(() => {
+      if (isTestEnded) dispatch(getResult());
+   }, [dispatch, isTestEnded]);
 
    return (
       <div>
-         <BackTo />
+         {!isTestEnded && <BackTo />}
          <h3>Тест по напралению Back-end</h3>
-         <div>
-            {currentIndex + 1} - {countOfQuestions} ******
-         </div>
-         <TestQuestion
-            questionText={currentQuestion.questionText}
-            answerOptions={currentQuestion.answerOptions}
-            idQuestion={currentQuestion.id}
-         />
 
-         <div>
-            <Button variant="buttonOutlined" onClick={skipQuestion}>
-               Пропустить вопрос
-            </Button>
-            <Button variant="buttonContained" onClick={answerHandler}>
-               Ответить
-            </Button>
-         </div>
+         {isTestEnded ? (
+            <ResultsOfTest />
+         ) : (
+            <div>
+               <div>
+                  {currentIndex + 1} - {countOfQuestions} ******
+               </div>
+
+               <TestQuestion
+                  questionText={currentQuestion.questionText}
+                  answerOptions={currentQuestion.answerOptions}
+                  idQuestion={currentQuestion.id}
+                  skipQuestion={skipQuestion}
+                  answerHandler={answerHandler}
+               />
+            </div>
+         )}
       </div>
    );
 };

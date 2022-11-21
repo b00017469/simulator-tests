@@ -1,3 +1,6 @@
+import { getCountOfRightAnswers } from '../../common/utils/getCountOfRightAnswers';
+import { getWrongAnswers } from '../../common/utils/getWrongAnswers';
+
 const initialState = {
    questionsForBackend: [
       {
@@ -5,7 +8,7 @@ const initialState = {
          questionText: 'Вопрос 1?',
          answerOptions: ['ответ 1-1', 'ответ 1-2+', 'ответ 1-3', 'ответ 1-4'],
          rightIndexesOfAnswers: { 0: false, 1: true, 2: false, 3: false },
-         indexesOfUserAnswers: {} as Answers,
+         indexesOfUserAnswers: { 0: false, 1: false, 2: false, 3: false },
          isAnswer: false,
          isAnswerRight: null as boolean | null,
       },
@@ -14,7 +17,7 @@ const initialState = {
          questionText: 'Вопрос 2?',
          answerOptions: ['ответ 2-1', 'ответ 2-2', 'ответ 2-3+', 'ответ 2-4'],
          rightIndexesOfAnswers: { 0: false, 1: false, 2: true, 3: false },
-         indexesOfUserAnswers: {} as Answers,
+         indexesOfUserAnswers: { 0: false, 1: false, 2: false, 3: false },
          isAnswer: false,
          isAnswerRight: null as boolean | null,
       },
@@ -23,7 +26,7 @@ const initialState = {
          questionText: 'Вопрос 3?',
          answerOptions: ['ответ 3-1', 'ответ 3-2', 'ответ 3-3', 'ответ 3-4+'],
          rightIndexesOfAnswers: { 0: false, 1: false, 2: false, 3: true },
-         indexesOfUserAnswers: {} as Answers,
+         indexesOfUserAnswers: { 0: false, 1: false, 2: false, 3: false },
          isAnswer: false,
          isAnswerRight: null as boolean | null,
       },
@@ -32,7 +35,7 @@ const initialState = {
          questionText: 'Вопрос 4?',
          answerOptions: ['ответ 4-1', 'ответ 4-2', 'ответ 4-3', 'ответ 4-4+'],
          rightIndexesOfAnswers: { 0: false, 1: false, 2: false, 3: true },
-         indexesOfUserAnswers: {} as Answers,
+         indexesOfUserAnswers: { 0: false, 1: false, 2: false, 3: false },
          isAnswer: false,
          isAnswerRight: null as boolean | null,
       },
@@ -41,11 +44,15 @@ const initialState = {
          questionText: 'Вопрос 5?',
          answerOptions: ['ответ 5-1+', 'ответ 5-2+', 'ответ 5-3', 'ответ 5-4'],
          rightIndexesOfAnswers: { 0: true, 1: true, 2: false, 3: false },
-         indexesOfUserAnswers: {} as Answers,
+         indexesOfUserAnswers: { 0: false, 1: false, 2: false, 3: false },
          isAnswer: false,
          isAnswerRight: null as boolean | null,
       },
    ],
+   results: {
+      countOfRightAnswers: 0,
+      wrongAnswers: [] as WrongAnswers[],
+   },
 };
 
 export const testReducer = (
@@ -54,8 +61,6 @@ export const testReducer = (
 ): InitialTestType => {
    switch (action.type) {
       case 'TESTS/SET-ANSWERS-USER':
-         console.log('reducer', action.payload.answers);
-
          return {
             ...state,
             questionsForBackend: state.questionsForBackend.map(question =>
@@ -63,7 +68,8 @@ export const testReducer = (
                   ? {
                        ...question,
                        indexesOfUserAnswers: {
-                          ...action.payload.answers,
+                          ...question.indexesOfUserAnswers,
+                          ...action.payload.answerChanged,
                        },
                     }
                   : question,
@@ -87,15 +93,24 @@ export const testReducer = (
             ),
          };
       }
+      case 'TESTS/GET-RESULT': {
+         return {
+            ...state,
+            results: {
+               countOfRightAnswers: getCountOfRightAnswers(state.questionsForBackend),
+               wrongAnswers: getWrongAnswers(state.questionsForBackend),
+            },
+         };
+      }
       default:
          return state;
    }
 };
 
-export const setIndexesOfUserAnswers = (id: string, answers: Answers) =>
+export const setIndexesOfUserAnswers = (id: string, answerChanged: any) =>
    ({
       type: 'TESTS/SET-ANSWERS-USER',
-      payload: { id, answers },
+      payload: { id, answerChanged },
    } as const);
 export const setCheckedAnswer = (id: string, isAnswerRight: boolean) =>
    ({
@@ -107,13 +122,18 @@ export const setIsAnswer = (id: string, isAnswer: boolean) =>
       type: 'TESTS/SET-IS-ANSWER',
       payload: { id, isAnswer },
    } as const);
+export const getResult = () =>
+   ({
+      type: 'TESTS/GET-RESULT',
+   } as const);
 
 type InitialTestType = typeof initialState;
 
 export type TestsReducerActions =
    | ReturnType<typeof setIndexesOfUserAnswers>
    | ReturnType<typeof setCheckedAnswer>
-   | ReturnType<typeof setIsAnswer>;
+   | ReturnType<typeof setIsAnswer>
+   | ReturnType<typeof getResult>;
 
 export type Answers = {
    0: boolean;
@@ -121,3 +141,5 @@ export type Answers = {
    2: boolean;
    3: boolean;
 };
+
+export type WrongAnswers = { questionNumber: number; wrongAnswer: string[] };

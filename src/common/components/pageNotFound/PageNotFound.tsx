@@ -24,7 +24,7 @@ export const PageNotFound = (): ReturnComponentType => {
             <Button
                className={styles.buttonSignUp}
                type="button"
-               variant="buttonOutlined"
+               variant="outlined"
                onClick={onBackToHomePageClick}
             >
                Back to home page

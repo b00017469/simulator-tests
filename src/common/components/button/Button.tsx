@@ -7,7 +7,7 @@ import styles from './Button.module.css';
 type DefaultButtonPropsType = DetailedHTMLProps<
    ButtonHTMLAttributes<HTMLButtonElement>,
    HTMLButtonElement
-> & { variant: 'buttonOutlined' | 'buttonContained' };
+> & { variant: 'outlined' | 'contained' };
 
 export const Button = ({
    variant,
@@ -16,10 +16,10 @@ export const Button = ({
 }: DefaultButtonPropsType): ReturnComponentType => {
    let finalClassName: string;
 
-   if (variant === 'buttonContained') {
+   if (variant === 'contained') {
       finalClassName = `${styles.buttonContained} ${className}`;
    } else {
-      finalClassName = `${variant === 'buttonOutlined' ? styles.buttonOutlined : ''} ${className}`;
+      finalClassName = `${variant === 'outlined' ? styles.buttonOutlined : ''} ${className}`;
    }
 
    return <button type="button" className={finalClassName} {...restProps} />;
