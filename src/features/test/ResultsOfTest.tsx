@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { Button } from '../../common/components/button/Button';
@@ -7,8 +8,11 @@ import { PATH } from '../../common/enum/pathEnum';
 import { useAppSelector } from '../../common/hooks/useAppSelector';
 import { ReturnComponentType } from '../../common/types/ReturnComponentType';
 
+import { resetResults } from './testReducer';
+
 export const ResultsOfTest = (): ReturnComponentType => {
    const navigate = useNavigate();
+   const dispatch = useDispatch();
    const wrongAnswers = useAppSelector(state => state.test.results.wrongAnswers);
    const countOfRightAnswers = useAppSelector(state => state.test.results.countOfRightAnswers);
 
@@ -16,7 +20,10 @@ export const ResultsOfTest = (): ReturnComponentType => {
       navigate(PATH.MAIN);
    };
 
-   const repeatTest = (): void => {};
+   const repeatTest = (): void => {
+      dispatch(resetResults());
+      navigate(PATH.BACKEND_TEST);
+   };
 
    return (
       <div>

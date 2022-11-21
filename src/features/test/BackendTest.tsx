@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { BackTo } from '../../common/components/backTo/BackTo';
+import { PATH } from '../../common/enum/pathEnum';
 import { useAppSelector } from '../../common/hooks/useAppSelector';
 import { ReturnComponentType } from '../../common/types/ReturnComponentType';
 import { checkAnswer } from '../../common/utils/checkAnswer';
 
-import { ResultsOfTest } from './ResultsOfTest';
 import { TestQuestion } from './TestQuestion';
-import { getResult, setCheckedAnswer, setIsAnswer } from './testReducer';
+import { getResults, setCheckedAnswer, setIsAnswer } from './testReducer';
 
 export const BackendTest = (): ReturnComponentType => {
+   const navigate = useNavigate();
    const dispatch = useDispatch();
    const questions = useAppSelector(state => state.test.questionsForBackend);
 
@@ -57,31 +59,28 @@ export const BackendTest = (): ReturnComponentType => {
 
    console.log(questions);
    useEffect(() => {
-      if (isTestEnded) dispatch(getResult());
-   }, [dispatch, isTestEnded]);
+      if (isTestEnded) {
+         dispatch(getResults());
+         navigate(PATH.RESULTS);
+      }
+   }, [dispatch, isTestEnded, navigate]);
 
    return (
       <div>
-         {!isTestEnded && <BackTo />}
+         <BackTo />
          <h3>Тест по напралению Back-end</h3>
 
-         {isTestEnded ? (
-            <ResultsOfTest />
-         ) : (
-            <div>
-               <div>
-                  {currentIndex + 1} - {countOfQuestions} ******
-               </div>
+         <div>
+            {currentIndex + 1} - {countOfQuestions} ******
+         </div>
 
-               <TestQuestion
-                  questionText={currentQuestion.questionText}
-                  answerOptions={currentQuestion.answerOptions}
-                  idQuestion={currentQuestion.id}
-                  skipQuestion={skipQuestion}
-                  answerHandler={answerHandler}
-               />
-            </div>
-         )}
+         <TestQuestion
+            questionText={currentQuestion.questionText}
+            answerOptions={currentQuestion.answerOptions}
+            idQuestion={currentQuestion.id}
+            skipQuestion={skipQuestion}
+            answerHandler={answerHandler}
+         />
       </div>
    );
 };

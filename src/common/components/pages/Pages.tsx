@@ -3,6 +3,7 @@ import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 
 import { BackendTest } from '../../../features/test/BackendTest';
+import { ResultsOfTest } from '../../../features/test/ResultsOfTest';
 import { ReturnComponentType } from '../../types/ReturnComponentType';
 import { ChooseTest } from '../choose/ChooseTest';
 import { PageNotFound } from '../pageNotFound/PageNotFound';
@@ -17,6 +18,7 @@ export const Pages = (): ReturnComponentType => {
             <Route path={PATH.MAIN} element={<ChooseTest />} />
             <Route path={PATH.PAGE_NOT_FOUND} element={<PageNotFound />} />
             <Route path={PATH.BACKEND_TEST} element={<BackendTest />} />
+            <Route path={PATH.RESULTS} element={<ResultsOfTest />} />
             <Route path={PATH.BAD_PATH} element={<PageNotFound />} />
          </Routes>
       </div>

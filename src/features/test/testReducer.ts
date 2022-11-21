@@ -93,7 +93,7 @@ export const testReducer = (
             ),
          };
       }
-      case 'TESTS/GET-RESULT': {
+      case 'TESTS/GET-RESULTS': {
          return {
             ...state,
             results: {
@@ -101,6 +101,9 @@ export const testReducer = (
                wrongAnswers: getWrongAnswers(state.questionsForBackend),
             },
          };
+      }
+      case 'TESTS/RESET-RESULTS': {
+         return initialState;
       }
       default:
          return state;
@@ -122,9 +125,13 @@ export const setIsAnswer = (id: string, isAnswer: boolean) =>
       type: 'TESTS/SET-IS-ANSWER',
       payload: { id, isAnswer },
    } as const);
-export const getResult = () =>
+export const getResults = () =>
    ({
-      type: 'TESTS/GET-RESULT',
+      type: 'TESTS/GET-RESULTS',
+   } as const);
+export const resetResults = () =>
+   ({
+      type: 'TESTS/RESET-RESULTS',
    } as const);
 
 type InitialTestType = typeof initialState;
@@ -133,7 +140,8 @@ export type TestsReducerActions =
    | ReturnType<typeof setIndexesOfUserAnswers>
    | ReturnType<typeof setCheckedAnswer>
    | ReturnType<typeof setIsAnswer>
-   | ReturnType<typeof getResult>;
+   | ReturnType<typeof resetResults>
+   | ReturnType<typeof getResults>;
 
 export type Answers = {
    0: boolean;
