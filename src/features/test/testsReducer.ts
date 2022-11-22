@@ -2,68 +2,26 @@ import { getCountOfRightAnswers } from '../../common/utils/getCountOfRightAnswer
 import { getWrongAnswers } from '../../common/utils/getWrongAnswers';
 
 const initialState = {
-   questionsForBackend: [
-      {
-         id: '1',
-         questionText: 'Вопрос 1?',
-         answerOptions: ['ответ 1-1', 'ответ 1-2+', 'ответ 1-3', 'ответ 1-4'],
-         rightIndexesOfAnswers: { 0: false, 1: true, 2: false, 3: false },
-         indexesOfUserAnswers: { 0: false, 1: false, 2: false, 3: false },
-         isAnswer: false,
-         isAnswerRight: null as boolean | null,
-      },
-      {
-         id: '2',
-         questionText: 'Вопрос 2?',
-         answerOptions: ['ответ 2-1', 'ответ 2-2', 'ответ 2-3+', 'ответ 2-4'],
-         rightIndexesOfAnswers: { 0: false, 1: false, 2: true, 3: false },
-         indexesOfUserAnswers: { 0: false, 1: false, 2: false, 3: false },
-         isAnswer: false,
-         isAnswerRight: null as boolean | null,
-      },
-      {
-         id: '3',
-         questionText: 'Вопрос 3?',
-         answerOptions: ['ответ 3-1', 'ответ 3-2', 'ответ 3-3', 'ответ 3-4+'],
-         rightIndexesOfAnswers: { 0: false, 1: false, 2: false, 3: true },
-         indexesOfUserAnswers: { 0: false, 1: false, 2: false, 3: false },
-         isAnswer: false,
-         isAnswerRight: null as boolean | null,
-      },
-      {
-         id: '4',
-         questionText: 'Вопрос 4?',
-         answerOptions: ['ответ 4-1', 'ответ 4-2', 'ответ 4-3', 'ответ 4-4+'],
-         rightIndexesOfAnswers: { 0: false, 1: false, 2: false, 3: true },
-         indexesOfUserAnswers: { 0: false, 1: false, 2: false, 3: false },
-         isAnswer: false,
-         isAnswerRight: null as boolean | null,
-      },
-      {
-         id: '5',
-         questionText: 'Вопрос 5?',
-         answerOptions: ['ответ 5-1+', 'ответ 5-2+', 'ответ 5-3', 'ответ 5-4'],
-         rightIndexesOfAnswers: { 0: true, 1: true, 2: false, 3: false },
-         indexesOfUserAnswers: { 0: false, 1: false, 2: false, 3: false },
-         isAnswer: false,
-         isAnswerRight: null as boolean | null,
-      },
-   ],
+   way: '',
+   questions: [] as Question[],
    results: {
       countOfRightAnswers: 0,
-      wrongAnswers: [] as WrongAnswers[],
+      wrongAnswers: [] as WrongAnswer[],
    },
 };
 
-export const testReducer = (
+export const testsReducer = (
    state: InitialTestType = initialState,
    action: TestsReducerActions,
 ): InitialTestType => {
    switch (action.type) {
+      case 'TESTS/GET-QUESTIONS': {
+         return { ...state, way: action.way, questions: action.questions };
+      }
       case 'TESTS/SET-ANSWERS-USER':
          return {
             ...state,
-            questionsForBackend: state.questionsForBackend.map(question =>
+            questions: state.questions.map(question =>
                question.id === action.payload.id
                   ? {
                        ...question,
@@ -78,7 +36,7 @@ export const testReducer = (
       case 'TESTS/SET-CHECKED-ANSWER': {
          return {
             ...state,
-            questionsForBackend: state.questionsForBackend.map(q =>
+            questions: state.questions.map(q =>
                q.id === action.payload.id
                   ? { ...q, isAnswerRight: action.payload.isAnswerRight }
                   : q,
@@ -88,7 +46,7 @@ export const testReducer = (
       case 'TESTS/SET-IS-ANSWER': {
          return {
             ...state,
-            questionsForBackend: state.questionsForBackend.map(q =>
+            questions: state.questions.map(q =>
                q.id === action.payload.id ? { ...q, isAnswer: action.payload.isAnswer } : q,
             ),
          };
@@ -97,8 +55,8 @@ export const testReducer = (
          return {
             ...state,
             results: {
-               countOfRightAnswers: getCountOfRightAnswers(state.questionsForBackend),
-               wrongAnswers: getWrongAnswers(state.questionsForBackend),
+               countOfRightAnswers: getCountOfRightAnswers(state.questions),
+               wrongAnswers: getWrongAnswers(state.questions),
             },
          };
       }
@@ -110,6 +68,12 @@ export const testReducer = (
    }
 };
 
+export const getQuestions = (way: string, questions: Question[]) =>
+   ({
+      type: 'TESTS/GET-QUESTIONS',
+      way,
+      questions,
+   } as const);
 export const setIndexesOfUserAnswers = (id: string, answerChanged: any) =>
    ({
       type: 'TESTS/SET-ANSWERS-USER',
@@ -140,6 +104,7 @@ export type TestsReducerActions =
    | ReturnType<typeof setIndexesOfUserAnswers>
    | ReturnType<typeof setCheckedAnswer>
    | ReturnType<typeof setIsAnswer>
+   | ReturnType<typeof getQuestions>
    | ReturnType<typeof resetResults>
    | ReturnType<typeof getResults>;
 
@@ -150,4 +115,14 @@ export type Answers = {
    3: boolean;
 };
 
-export type WrongAnswers = { questionNumber: number; wrongAnswer: string[] };
+export type Question = {
+   id: string;
+   questionText: string;
+   answerOptions: string[];
+   rightIndexesOfAnswers: Answers;
+   indexesOfUserAnswers: Answers;
+   isAnswer: boolean;
+   isAnswerRight: boolean | null;
+};
+
+export type WrongAnswer = { questionNumber: number; wrongAnswer: string[] };

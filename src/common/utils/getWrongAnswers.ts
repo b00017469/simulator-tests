@@ -1,7 +1,7 @@
-import { WrongAnswers } from '../../features/test/testReducer';
+import { WrongAnswer } from '../../features/test/testsReducer';
 
-export const getWrongAnswers = (arr: any): WrongAnswers[] => {
-   const wrongAnswers = [] as WrongAnswers[];
+export const getWrongAnswers = (arr: any): WrongAnswer[] => {
+   const wrongAnswers = [] as WrongAnswer[];
 
    for (let i = 0; i < arr.length; i += 1) {
       if (arr[i].isAnswerRight === null)

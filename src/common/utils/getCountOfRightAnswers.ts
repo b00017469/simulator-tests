@@ -1,8 +1,10 @@
-export const getCountOfRightAnswers = (arr: any): number => {
+import { Question } from '../../features/test/testsReducer';
+
+export const getCountOfRightAnswers = (questions: Question[]): number => {
    let count = 0;
 
-   for (let i = 0; i < arr.length; i += 1) {
-      if (arr[i].isAnswerRight) count += 1;
+   for (let i = 0; i < questions.length; i += 1) {
+      if (questions[i].isAnswerRight) count += 1;
    }
 
    return count;

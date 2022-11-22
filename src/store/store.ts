@@ -1,9 +1,9 @@
 import { combineReducers, createStore } from 'redux';
 
-import { testReducer } from '../features/test/testReducer';
+import { testsReducer } from '../features/test/testsReducer';
 
 const rootReducer = combineReducers({
-   test: testReducer,
+   test: testsReducer,
 });
 
 export const store = createStore(rootReducer);

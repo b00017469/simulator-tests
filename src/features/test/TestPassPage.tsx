@@ -10,21 +10,19 @@ import { ReturnComponentType } from '../../common/types/ReturnComponentType';
 import { checkAnswer } from '../../common/utils/checkAnswer';
 
 import { TestQuestion } from './TestQuestion';
-import { getResults, setCheckedAnswer, setIsAnswer } from './testReducer';
+import { getResults, setCheckedAnswer, setIsAnswer } from './testsReducer';
 
-export const BackendTest = (): ReturnComponentType => {
+export const TestPassPage = (): ReturnComponentType => {
    const navigate = useNavigate();
    const dispatch = useDispatch();
-   const questions = useAppSelector(state => state.test.questionsForBackend);
+   const questions = useAppSelector(state => state.test.questions);
+   const way = useAppSelector(state => state.test.way);
 
    const [currentIndex, setCurrentIndex] = useState(0);
    const [indexesOfUnansweredQuestions, setIndexesOfUnansweredQuestions] = useState([
       0, 1, 2, 3, 4,
    ]);
 
-   console.log(currentIndex);
-
-   console.log(indexesOfUnansweredQuestions);
    const countOfQuestions = questions.length;
    const currentQuestion = questions[currentIndex];
    const isTestEnded = indexesOfUnansweredQuestions.length < 1;
@@ -57,7 +55,6 @@ export const BackendTest = (): ReturnComponentType => {
       }
    };
 
-   console.log(questions);
    useEffect(() => {
       if (isTestEnded) {
          dispatch(getResults());
@@ -68,7 +65,7 @@ export const BackendTest = (): ReturnComponentType => {
    return (
       <div>
          <BackTo />
-         <h3>Тест по напралению Back-end</h3>
+         <h3>Тест по напралению {way}</h3>
 
          <div>
             {currentIndex + 1} - {countOfQuestions} ******
