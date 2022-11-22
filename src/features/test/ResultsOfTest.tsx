@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { Button } from '../../common/components/button/Button';
+import { ProgressBar } from '../../common/components/progressBar/ProgressBar';
 import { PATH } from '../../common/enum/pathEnum';
 import { useAppSelector } from '../../common/hooks/useAppSelector';
 import { ReturnComponentType } from '../../common/types/ReturnComponentType';
@@ -11,12 +12,18 @@ import { chooseWay } from '../../common/utils/chooseWay';
 
 import { getQuestions, resetResults } from './testsReducer';
 
+const oneHundredPercent = 100;
+
 export const ResultsOfTest = (): ReturnComponentType => {
    const navigate = useNavigate();
    const dispatch = useDispatch();
+
    const wrongAnswers = useAppSelector(state => state.test.results.wrongAnswers);
    const countOfRightAnswers = useAppSelector(state => state.test.results.countOfRightAnswers);
    const way = useAppSelector(state => state.test.way);
+   const countOfQuestions = useAppSelector(state => state.test.countOfQuestions);
+
+   const percent = (countOfRightAnswers / countOfQuestions) * oneHundredPercent;
 
    const selectTest = (): void => {
       navigate(PATH.MAIN);
@@ -33,8 +40,9 @@ export const ResultsOfTest = (): ReturnComponentType => {
    return (
       <div>
          <h3>Ваш результат теста</h3>
+         <ProgressBar percent={percent} />
          <span>
-            `Вы ответили на {countOfRightAnswers} из {5} вопросов`
+            Вы ответили на {countOfRightAnswers} из {countOfQuestions} вопросов
          </span>
 
          <table>

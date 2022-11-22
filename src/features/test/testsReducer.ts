@@ -4,6 +4,7 @@ import { getWrongAnswers } from '../../common/utils/getWrongAnswers';
 const initialState = {
    way: '',
    questions: [] as Question[],
+   countOfQuestions: 0,
    results: {
       countOfRightAnswers: 0,
       wrongAnswers: [] as WrongAnswer[],
@@ -16,7 +17,12 @@ export const testsReducer = (
 ): InitialTestType => {
    switch (action.type) {
       case 'TESTS/GET-QUESTIONS': {
-         return { ...state, way: action.way, questions: action.questions };
+         return {
+            ...state,
+            way: action.way,
+            questions: action.questions,
+            countOfQuestions: action.questions.length,
+         };
       }
       case 'TESTS/SET-ANSWERS-USER':
          return {
