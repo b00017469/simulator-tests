@@ -1,0 +1,19 @@
+.wrapper {
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   width: 760px;
+}
+
+.h {
+   font-weight: 500;
+   font-size: 22px;
+   line-height: 25px;
+}
+
+.number span {
+   font-weight: 400;
+   font-size: 16px;
+   line-height: 20px;
+   color: #8f8f8f;
+}

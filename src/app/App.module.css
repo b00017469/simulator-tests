@@ -2,12 +2,3 @@
    display: flex;
    flex-direction: column;
 }
-
-.icons {
-   display: flex;
-   flex-direction: row;
-}
-
-.icons img {
-   cursor: pointer;
-}

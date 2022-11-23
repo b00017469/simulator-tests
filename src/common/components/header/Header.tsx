@@ -7,7 +7,9 @@ import style from './Header.module.css';
 export const Header = (): ReturnComponentType => {
    return (
       <header className={style.header}>
-         <h3>SimulatorTest</h3>
+         <div>
+            Simulator<span>Test</span>
+         </div>
       </header>
    );
 };

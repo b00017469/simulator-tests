@@ -2,10 +2,9 @@ import React from 'react';
 
 import { useDispatch } from 'react-redux';
 
-import { Button } from '../../common/components/button/Button';
-import { ReturnComponentType } from '../../common/types/ReturnComponentType';
-
-import { setIndexesOfUserAnswers } from './testsReducer';
+import { Button } from '../../../common/components/button/Button';
+import { ReturnComponentType } from '../../../common/types/ReturnComponentType';
+import { setIndexesOfUserAnswers } from '../testsReducer';
 
 type Props = {
    questionText: string;

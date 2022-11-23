@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Route, Routes, Navigate } from 'react-router-dom';
 
-import { ResultsOfTest } from '../../../features/test/ResultsOfTest';
+import { ResultsOfTest } from '../../../features/test/components/ResultsOfTest';
 import { TestPassPage } from '../../../features/test/TestPassPage';
 import { ReturnComponentType } from '../../types/ReturnComponentType';
 import { ChooseTest } from '../choose/ChooseTest';
@@ -12,7 +12,7 @@ import { PATH } from 'common/enum/pathEnum';
 
 export const Pages = (): ReturnComponentType => {
    return (
-      <div>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
          <Routes>
             <Route path={PATH.ROOT} element={<Navigate to={PATH.MAIN} />} />
             <Route path={PATH.MAIN} element={<ChooseTest />} />

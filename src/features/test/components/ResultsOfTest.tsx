@@ -3,14 +3,13 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { Button } from '../../common/components/button/Button';
-import { ProgressBar } from '../../common/components/progressBar/ProgressBar';
-import { PATH } from '../../common/enum/pathEnum';
-import { useAppSelector } from '../../common/hooks/useAppSelector';
-import { ReturnComponentType } from '../../common/types/ReturnComponentType';
-import { chooseWay } from '../../common/utils/chooseWay';
-
-import { getQuestions, resetResults } from './testsReducer';
+import { Button } from '../../../common/components/button/Button';
+import { ProgressBar } from '../../../common/components/progressBar/ProgressBar';
+import { PATH } from '../../../common/enum/pathEnum';
+import { useAppSelector } from '../../../common/hooks/useAppSelector';
+import { ReturnComponentType } from '../../../common/types/ReturnComponentType';
+import { chooseWay } from '../../../common/utils/chooseWay';
+import { getQuestions, resetResults } from '../testsReducer';
 
 const oneHundredPercent = 100;
 
@@ -39,11 +38,13 @@ export const ResultsOfTest = (): ReturnComponentType => {
 
    return (
       <div>
-         <h3>Ваш результат теста</h3>
          <ProgressBar percent={percent} />
-         <span>
-            Вы ответили на {countOfRightAnswers} из {countOfQuestions} вопросов
-         </span>
+         <div>
+            <h3>Ваш результат теста</h3>
+            <span>
+               Вы ответили на {countOfRightAnswers} из {countOfQuestions} вопросов
+            </span>
+         </div>
 
          <table>
             <thead>

@@ -4,18 +4,21 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { BackTo } from '../../common/components/backTo/BackTo';
+import { CircleSvg } from '../../common/components/circleSvg/CircleSvg';
 import { PATH } from '../../common/enum/pathEnum';
 import { useAppSelector } from '../../common/hooks/useAppSelector';
 import { ReturnComponentType } from '../../common/types/ReturnComponentType';
 import { checkAnswer } from '../../common/utils/checkAnswer';
 
-import { TestQuestion } from './TestQuestion';
+import { TestQuestion } from './components/TestQuestion';
+import styles from './TestPassPage.module.css';
 import { getResults, setCheckedAnswer, setIsAnswer } from './testsReducer';
 
 export const TestPassPage = (): ReturnComponentType => {
    const navigate = useNavigate();
    const dispatch = useDispatch();
    const questions = useAppSelector(state => state.test.questions);
+   const countOfQuestions = useAppSelector(state => state.test.countOfQuestions);
    const way = useAppSelector(state => state.test.way);
 
    const [currentIndex, setCurrentIndex] = useState(0);
@@ -23,7 +26,6 @@ export const TestPassPage = (): ReturnComponentType => {
       0, 1, 2, 3, 4,
    ]);
 
-   const countOfQuestions = questions.length;
    const currentQuestion = questions[currentIndex];
    const isTestEnded = indexesOfUnansweredQuestions.length < 1;
 
@@ -63,12 +65,15 @@ export const TestPassPage = (): ReturnComponentType => {
    }, [dispatch, isTestEnded, navigate]);
 
    return (
-      <div>
+      <div className={styles.wrapper}>
          <BackTo />
-         <h3>Тест по напралению {way}</h3>
+         <h3 className={styles.h}>Тест по напралению {way}</h3>
 
-         <div>
-            {currentIndex + 1} - {countOfQuestions} ******
+         <div className={styles.number}>
+            <span>
+               {currentIndex + 1} из {countOfQuestions}
+            </span>{' '}
+            <CircleSvg />
          </div>
 
          <TestQuestion

@@ -1,0 +1,32 @@
+.wrapper {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+.icons {
+   display: flex;
+}
+
+.h {
+   font-weight: 600;
+   font-size: 22px;
+   line-height: 25px;
+   margin: 20px;
+}
+
+.icon {
+   cursor: pointer;
+   margin: 20px;
+   width: 372px;
+   height: 336px;
+   background: #fcfbfb;
+   box-shadow: 0 5px 20px rgba(29, 33, 38, 0.03), 0 1px 2px rgba(29, 33, 38, 0.1);
+   border-radius: 2px;
+}
+
+.icon :hover {
+   background: rgba(0, 102, 204, 0.1);
+   border: 1px solid #0066cc;
+   box-shadow: 0 5px 20px rgba(0, 102, 204, 0.03), 0 1px 22px rgba(0, 102, 204, 0.1);
+}
