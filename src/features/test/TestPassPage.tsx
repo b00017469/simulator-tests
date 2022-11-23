@@ -73,7 +73,14 @@ export const TestPassPage = (): ReturnComponentType => {
             <span>
                {currentIndex + 1} из {countOfQuestions}
             </span>{' '}
-            <CircleSvg />
+            {questions.map(question => (
+               <CircleSvg
+                  key={question.id}
+                  isAnswerRight={question.isAnswerRight}
+                  currentQuestionId={currentQuestion.id}
+                  questionId={question.id}
+               />
+            ))}
          </div>
 
          <TestQuestion
