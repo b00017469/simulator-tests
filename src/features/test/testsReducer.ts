@@ -42,18 +42,14 @@ export const testsReducer = (
       case 'TESTS/SET-CHECKED-ANSWER': {
          return {
             ...state,
-            questions: state.questions.map(q =>
-               q.id === action.payload.id
-                  ? { ...q, isAnswerRight: action.payload.isAnswerRight }
-                  : q,
-            ),
-         };
-      }
-      case 'TESTS/SET-IS-ANSWER': {
-         return {
-            ...state,
-            questions: state.questions.map(q =>
-               q.id === action.payload.id ? { ...q, isAnswer: action.payload.isAnswer } : q,
+            questions: state.questions.map(question =>
+               question.id === action.payload.id
+                  ? {
+                       ...question,
+                       isAnswerRight: action.payload.isAnswerRight,
+                       isAnswer: true,
+                    }
+                  : question,
             ),
          };
       }
@@ -90,11 +86,6 @@ export const setCheckedAnswer = (id: string, isAnswerRight: boolean) =>
       type: 'TESTS/SET-CHECKED-ANSWER',
       payload: { id, isAnswerRight },
    } as const);
-export const setIsAnswer = (id: string, isAnswer: boolean) =>
-   ({
-      type: 'TESTS/SET-IS-ANSWER',
-      payload: { id, isAnswer },
-   } as const);
 export const getResults = () =>
    ({
       type: 'TESTS/GET-RESULTS',
@@ -109,7 +100,6 @@ type InitialTestType = typeof initialState;
 export type TestsReducerActions =
    | ReturnType<typeof setIndexesOfUserAnswers>
    | ReturnType<typeof setCheckedAnswer>
-   | ReturnType<typeof setIsAnswer>
    | ReturnType<typeof getQuestions>
    | ReturnType<typeof resetResults>
    | ReturnType<typeof getResults>;

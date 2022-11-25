@@ -12,7 +12,7 @@ import { checkAnswer } from '../../common/utils/checkAnswer';
 
 import { TestQuestion } from './components/TestQuestion';
 import styles from './TestPassPage.module.css';
-import { getResults, setCheckedAnswer, setIsAnswer } from './testsReducer';
+import { getResults, setCheckedAnswer } from './testsReducer';
 
 export const TestPassPage = (): ReturnComponentType => {
    const navigate = useNavigate();
@@ -39,10 +39,9 @@ export const TestPassPage = (): ReturnComponentType => {
          currentQuestion.indexesOfUserAnswers,
       );
 
-      setIndexesOfUnansweredQuestions(indexesOfUnansweredQuestions.filter(i => i !== currentIndex));
-
       dispatch(setCheckedAnswer(currentQuestion.id, isAnswerRight));
-      dispatch(setIsAnswer(currentQuestion.id, true));
+
+      setIndexesOfUnansweredQuestions(indexesOfUnansweredQuestions.filter(i => i !== currentIndex));
 
       nextQuestion();
    };
@@ -72,7 +71,7 @@ export const TestPassPage = (): ReturnComponentType => {
          <div className={styles.number}>
             <span>
                {currentIndex + 1} из {countOfQuestions}
-            </span>{' '}
+            </span>
             {questions.map(question => (
                <CircleSvg
                   key={question.id}
