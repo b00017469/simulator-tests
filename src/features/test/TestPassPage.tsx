@@ -33,11 +33,8 @@ export const TestPassPage = (): ReturnComponentType => {
       nextQuestion();
    };
 
-   const answerHandler = (): void => {
-      const isAnswerRight = checkAnswer(
-         currentQuestion.rightIndexesOfAnswers,
-         currentQuestion.indexesOfUserAnswers,
-      );
+   const answerHandler = (userAnswer: number[]): void => {
+      const isAnswerRight = checkAnswer(currentQuestion.rightIndexesOfAnswers, userAnswer);
 
       dispatch(setCheckedAnswer(currentQuestion.id, isAnswerRight));
 
@@ -87,7 +84,7 @@ export const TestPassPage = (): ReturnComponentType => {
             answerOptions={currentQuestion.answerOptions}
             idQuestion={currentQuestion.id}
             skipQuestion={skipQuestion}
-            answerHandler={answerHandler}
+            answerClick={answerHandler}
          />
       </div>
    );

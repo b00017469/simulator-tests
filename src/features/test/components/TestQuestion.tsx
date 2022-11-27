@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useDispatch } from 'react-redux';
 
@@ -11,7 +11,7 @@ type Props = {
    answerOptions: string[];
    idQuestion: string;
    skipQuestion: () => void;
-   answerHandler: () => void;
+   answerClick: (userAnswer: number[]) => void;
 };
 
 export const TestQuestion = ({
@@ -19,12 +19,21 @@ export const TestQuestion = ({
    answerOptions,
    idQuestion,
    skipQuestion,
-   answerHandler,
+   answerClick,
 }: Props): ReturnComponentType => {
    const dispatch = useDispatch();
 
-   const onChangeCheck = (index: 0 | 1 | 2 | 3, isChecked: boolean): void => {
-      dispatch(setIndexesOfUserAnswers(idQuestion, { [index]: isChecked }));
+   const [userAnswer, setUserAnswer] = useState<number[]>([]);
+
+   const onChangeCheck = (index: number, isChecked: boolean): void => {
+      if (isChecked) setUserAnswer([...userAnswer, index]);
+      else setUserAnswer(userAnswer.filter(answer => answer !== index));
+   };
+
+   const answerHandle = (): void => {
+      answerClick(userAnswer);
+      dispatch(setIndexesOfUserAnswers(idQuestion, userAnswer));
+      setUserAnswer([]);
    };
 
    return (
@@ -35,9 +44,7 @@ export const TestQuestion = ({
                <li key={answer}>
                   <input
                      type="checkbox"
-                     onChange={event =>
-                        onChangeCheck(index as 0 | 1 | 2 | 3, event.currentTarget.checked)
-                     }
+                     onChange={event => onChangeCheck(index, event.currentTarget.checked)}
                   />
                   <span>{answer}</span>
                </li>
@@ -48,7 +55,7 @@ export const TestQuestion = ({
             <Button variant="outlined" onClick={skipQuestion}>
                Пропустить вопрос
             </Button>
-            <Button variant="contained" onClick={answerHandler}>
+            <Button variant="contained" onClick={answerHandle}>
                Ответить
             </Button>
          </div>

@@ -1,5 +1,3 @@
-import { Answers } from '../../features/test/testsReducer';
-
-export const checkAnswer = (rightAnswers: Answers, usersAnswers: Answers): boolean => {
-   return JSON.stringify(rightAnswers) === JSON.stringify(usersAnswers);
+export const checkAnswer = (rightAnswers: number[], usersAnswers: number[]): boolean => {
+   return JSON.stringify(rightAnswers.sort()) === JSON.stringify(usersAnswers.sort());
 };

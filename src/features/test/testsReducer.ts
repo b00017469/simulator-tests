@@ -7,7 +7,7 @@ const initialState = {
    countOfQuestions: 0,
    results: {
       countOfRightAnswers: 0,
-      wrongAnswers: [] as WrongAnswer[],
+      wrongAnswers: [] as WrongAnswers[],
    },
 };
 
@@ -31,10 +31,7 @@ export const testsReducer = (
                question.id === action.payload.id
                   ? {
                        ...question,
-                       indexesOfUserAnswers: {
-                          ...question.indexesOfUserAnswers,
-                          ...action.payload.answerChanged,
-                       },
+                       indexesOfUserAnswers: action.payload.userAnswer,
                     }
                   : question,
             ),
@@ -76,10 +73,10 @@ export const getQuestions = (way: string, questions: Question[]) =>
       way,
       questions,
    } as const);
-export const setIndexesOfUserAnswers = (id: string, answerChanged: any) =>
+export const setIndexesOfUserAnswers = (id: string, userAnswer: number[]) =>
    ({
       type: 'TESTS/SET-ANSWERS-USER',
-      payload: { id, answerChanged },
+      payload: { id, userAnswer },
    } as const);
 export const setCheckedAnswer = (id: string, isAnswerRight: boolean) =>
    ({
@@ -104,21 +101,21 @@ export type TestsReducerActions =
    | ReturnType<typeof resetResults>
    | ReturnType<typeof getResults>;
 
-export type Answers = {
-   0: boolean;
-   1: boolean;
-   2: boolean;
-   3: boolean;
-};
+// export type Answers = {
+//    0: boolean;
+//    1: boolean;
+//    2: boolean;
+//    3: boolean;
+// };
 
 export type Question = {
    id: string;
    questionText: string;
    answerOptions: string[];
-   rightIndexesOfAnswers: Answers;
-   indexesOfUserAnswers: Answers;
+   rightIndexesOfAnswers: number[];
+   indexesOfUserAnswers: number[];
    isAnswer: boolean;
    isAnswerRight: boolean | null;
 };
 
-export type WrongAnswer = { questionNumber: number; wrongAnswer: string[] };
+export type WrongAnswers = { questionNumber: number; wrongAnswer: string[] };

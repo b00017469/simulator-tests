@@ -1,7 +1,7 @@
-import { WrongAnswer } from '../../features/test/testsReducer';
+import { Question, WrongAnswers } from '../../features/test/testsReducer';
 
-export const getWrongAnswers = (arr: any): WrongAnswer[] => {
-   const wrongAnswers = [] as WrongAnswer[];
+export const getWrongAnswers = (arr: Question[]): WrongAnswers[] => {
+   const wrongAnswers = [] as WrongAnswers[];
 
    for (let i = 0; i < arr.length; i += 1) {
       if (arr[i].isAnswerRight === null)
@@ -14,9 +14,8 @@ export const getWrongAnswers = (arr: any): WrongAnswer[] => {
          const currentAnswerOptions = arr[i].answerOptions;
          const currentUserAnswer = arr[i].indexesOfUserAnswers;
 
-         // eslint-disable-next-line no-restricted-syntax
-         for (const key in currentUserAnswer) {
-            if (currentUserAnswer[key]) wrongAnswer.push(currentAnswerOptions[key]);
+         for (let j = 0; j < currentUserAnswer.length; j += 1) {
+            wrongAnswer.push(currentAnswerOptions[currentUserAnswer[j]]);
          }
          wrongAnswers.push({ questionNumber: i + 1, wrongAnswer });
       }
