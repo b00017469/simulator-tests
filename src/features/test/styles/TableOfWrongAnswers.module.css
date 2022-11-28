@@ -1,0 +1,28 @@
+.table {
+   width: 100%;
+   margin-top: 15px;
+   background: #ffffff;
+   border: 1px solid #e5e5e5;
+   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+   border-radius: 2px;
+   border-collapse: collapse;
+}
+
+.head {
+   background: #e5e5e5;
+}
+
+.table th {
+   height: 35px;
+}
+
+.table td {
+   border: 1px solid #e5e5e5;
+   height: 35px;
+   vertical-align: center;
+}
+
+.number {
+   text-align: center;
+   width: 95px;
+}

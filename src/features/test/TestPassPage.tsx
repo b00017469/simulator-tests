@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { BackTo } from '../../common/components/backTo/BackTo';
 import { CircleSvg } from '../../common/components/circleSvg/CircleSvg';
+import { TitleWay } from '../../common/components/titleWay/TitleWay';
 import { PATH } from '../../common/enum/pathEnum';
 import { useAppSelector } from '../../common/hooks/useAppSelector';
 import { ReturnComponentType } from '../../common/types/ReturnComponentType';
@@ -19,7 +20,6 @@ export const TestPassPage = (): ReturnComponentType => {
    const dispatch = useDispatch();
    const questions = useAppSelector(state => state.test.questions);
    const countOfQuestions = useAppSelector(state => state.test.countOfQuestions);
-   const way = useAppSelector(state => state.test.way);
 
    const [currentIndex, setCurrentIndex] = useState(0);
    const [indexesOfUnansweredQuestions, setIndexesOfUnansweredQuestions] = useState([
@@ -63,7 +63,8 @@ export const TestPassPage = (): ReturnComponentType => {
    return (
       <div className={styles.wrapper}>
          <BackTo />
-         <h1 className={styles.h}>Тест по напралению {way}</h1>
+
+         <TitleWay />
 
          <div className={styles.number}>
             <span>

@@ -1,0 +1,34 @@
+.wrapper {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-evenly;
+   width: 760px;
+}
+
+.progress {
+   display: flex;
+   align-items: center;
+   justify-content: space-evenly;
+   width: 756px;
+   height: 204px;
+   background: #fcfbfb;
+   box-shadow: 0 5px 20px rgba(29, 33, 38, 0.03), 0 1px 2px rgba(29, 33, 38, 0.1);
+   border-radius: 2px;
+}
+
+.h {
+   font-weight: 500;
+   font-size: 22px;
+   line-height: 27px;
+}
+
+.buttons {
+   width: 756px;
+   display: flex;
+   justify-content: flex-end;
+}
+
+.buttons button {
+   margin: 15px 0 0 15px;
+}
