@@ -18,13 +18,15 @@ import styles from './styles/TestPassPage.module.css';
 export const TestPassPage = (): ReturnComponentType => {
    const navigate = useNavigate();
    const dispatch = useDispatch();
+
    const questions = useAppSelector(state => state.test.questions);
    const countOfQuestions = useAppSelector(state => state.test.countOfQuestions);
 
+   const initIndexes = Array.from(Array(countOfQuestions).keys());
+
    const [currentIndex, setCurrentIndex] = useState(0);
-   const [indexesOfUnansweredQuestions, setIndexesOfUnansweredQuestions] = useState([
-      0, 1, 2, 3, 4,
-   ]);
+   const [indexesOfUnansweredQuestions, setIndexesOfUnansweredQuestions] =
+      useState<number[]>(initIndexes);
 
    const currentQuestion = questions[currentIndex];
    const isTestEnded = indexesOfUnansweredQuestions.length < 1;
