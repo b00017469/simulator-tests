@@ -4,7 +4,8 @@ import { useDispatch } from 'react-redux';
 
 import { Button } from '../../../common/components/button/Button';
 import { ReturnComponentType } from '../../../common/types/ReturnComponentType';
-import { setIndexesOfUserAnswers } from '../testsReducer';
+import { setIndexesOfUserAnswers } from '../reducer/testsReducer';
+import style from '../styles/TestQuestion.module.css';
 
 type Props = {
    questionText: string;
@@ -37,21 +38,22 @@ export const TestQuestion = ({
    };
 
    return (
-      <div>
-         {questionText}
-         <ul>
-            {answerOptions.map((answer, index) => (
-               <li key={answer}>
+      <div className={style.wrapper}>
+         <h3 className={style.h}>{questionText}</h3>
+         {answerOptions.map((answer, index) => (
+            <div key={answer} className={style.answer}>
+               <label>
                   <input
+                     className={style.checkbox}
                      type="checkbox"
                      onChange={event => onChangeCheck(index, event.currentTarget.checked)}
                   />
-                  <span>{answer}</span>
-               </li>
-            ))}
-         </ul>
+                  {answer}
+               </label>
+            </div>
+         ))}
 
-         <div>
+         <div className={style.buttons}>
             <Button variant="outlined" onClick={skipQuestion}>
                Пропустить вопрос
             </Button>

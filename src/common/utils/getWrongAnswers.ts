@@ -1,4 +1,4 @@
-import { Question, WrongAnswers } from '../../features/test/testsReducer';
+import { Question, WrongAnswers } from '../../features/test/reducer/testsReducer';
 
 export const getWrongAnswers = (arr: Question[]): WrongAnswers[] => {
    const wrongAnswers = [] as WrongAnswers[];

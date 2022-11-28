@@ -1,5 +1,5 @@
-import { getCountOfRightAnswers } from '../../common/utils/getCountOfRightAnswers';
-import { getWrongAnswers } from '../../common/utils/getWrongAnswers';
+import { getCountOfRightAnswers } from '../../../common/utils/getCountOfRightAnswers';
+import { getWrongAnswers } from '../../../common/utils/getWrongAnswers';
 
 const initialState = {
    way: '',
@@ -100,13 +100,6 @@ export type TestsReducerActions =
    | ReturnType<typeof getQuestions>
    | ReturnType<typeof resetResults>
    | ReturnType<typeof getResults>;
-
-// export type Answers = {
-//    0: boolean;
-//    1: boolean;
-//    2: boolean;
-//    3: boolean;
-// };
 
 export type Question = {
    id: string;

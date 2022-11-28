@@ -1,4 +1,4 @@
-import { Question } from '../../features/test/testsReducer';
+import { Question } from '../../features/test/reducer/testsReducer';
 
 export const getCountOfRightAnswers = (questions: Question[]): number => {
    let count = 0;

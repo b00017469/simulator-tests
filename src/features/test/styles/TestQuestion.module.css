@@ -1,0 +1,29 @@
+.wrapper {
+   display: flex;
+   flex-direction: column;
+   align-items: stretch;
+   width: 760px;
+}
+
+.h {
+   font-weight: 600;
+   font-size: 18px;
+   line-height: 20px;
+}
+
+.answer {
+   background: #ffffff;
+   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
+   border-radius: 5px;
+   padding: 5px;
+   margin-bottom: 10px;
+   display: inline-block;
+}
+.checkbox {
+   transform: scale(130%);
+}
+
+.buttons {
+   display: flex;
+   justify-content: space-between;
+}

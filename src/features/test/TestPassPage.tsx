@@ -11,8 +11,8 @@ import { ReturnComponentType } from '../../common/types/ReturnComponentType';
 import { checkAnswer } from '../../common/utils/checkAnswer';
 
 import { TestQuestion } from './components/TestQuestion';
-import styles from './TestPassPage.module.css';
-import { getResults, setCheckedAnswer } from './testsReducer';
+import { getResults, setCheckedAnswer } from './reducer/testsReducer';
+import styles from './styles/TestPassPage.module.css';
 
 export const TestPassPage = (): ReturnComponentType => {
    const navigate = useNavigate();
@@ -63,7 +63,7 @@ export const TestPassPage = (): ReturnComponentType => {
    return (
       <div className={styles.wrapper}>
          <BackTo />
-         <h3 className={styles.h}>Тест по напралению {way}</h3>
+         <h1 className={styles.h}>Тест по напралению {way}</h1>
 
          <div className={styles.number}>
             <span>

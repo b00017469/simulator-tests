@@ -9,7 +9,7 @@ import { PATH } from '../../../common/enum/pathEnum';
 import { useAppSelector } from '../../../common/hooks/useAppSelector';
 import { ReturnComponentType } from '../../../common/types/ReturnComponentType';
 import { chooseWay } from '../../../common/utils/chooseWay';
-import { getQuestions, resetResults } from '../testsReducer';
+import { getQuestions, resetResults } from '../reducer/testsReducer';
 
 const oneHundredPercent = 100;
 

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import backend from '../../../assets/svg/backend.svg';
 import frontend from '../../../assets/svg/frontend.svg';
-import { getQuestions } from '../../../features/test/testsReducer';
+import { getQuestions } from '../../../features/test/reducer/testsReducer';
 import { PATH } from '../../enum/pathEnum';
 import { WAY } from '../../enum/wayEnum';
 import { ReturnComponentType } from '../../types/ReturnComponentType';
