@@ -37,6 +37,11 @@ export const TestQuestion = ({
       setUserAnswer([]);
    };
 
+   const skipHandle = (): void => {
+      skipQuestion();
+      setUserAnswer([]);
+   };
+
    return (
       <div className={style.wrapper}>
          <h3 className={style.h}>{questionText}</h3>
@@ -54,7 +59,7 @@ export const TestQuestion = ({
          ))}
 
          <div className={style.buttons}>
-            <Button variant="outlined" onClick={skipQuestion}>
+            <Button variant="outlined" onClick={skipHandle}>
                Пропустить вопрос
             </Button>
             <Button variant="contained" onClick={answerHandle}>
