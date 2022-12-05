@@ -26,6 +26,8 @@ export const TestQuestion = ({
 
    const [userAnswer, setUserAnswer] = useState<number[]>([]);
 
+   const disableAnswerButton = !userAnswer.length;
+
    const onChangeCheck = (index: number, isChecked: boolean): void => {
       if (isChecked) setUserAnswer([...userAnswer, index]);
       else setUserAnswer(userAnswer.filter(answer => answer !== index));
@@ -62,7 +64,7 @@ export const TestQuestion = ({
             <Button variant="outlined" onClick={skipHandle}>
                Пропустить вопрос
             </Button>
-            <Button variant="contained" onClick={answerHandle}>
+            <Button variant="contained" onClick={answerHandle} disabled={disableAnswerButton}>
                Ответить
             </Button>
          </div>

@@ -19,8 +19,17 @@
    margin-bottom: 10px;
    display: inline-block;
 }
+
+.answer label:hover {
+   cursor: pointer;
+}
+
 .checkbox {
    transform: scale(130%);
+}
+
+.checkbox:hover {
+   cursor: pointer;
 }
 
 .buttons {

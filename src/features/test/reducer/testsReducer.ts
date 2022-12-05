@@ -12,9 +12,9 @@ const initialState = {
 };
 
 export const testsReducer = (
-   state: InitialTestType = initialState,
+   state: InitialStateType = initialState,
    action: TestsReducerActions,
-): InitialTestType => {
+): InitialStateType => {
    switch (action.type) {
       case 'TESTS/GET-QUESTIONS': {
          return {
@@ -92,7 +92,7 @@ export const resetResults = () =>
       type: 'TESTS/RESET-RESULTS',
    } as const);
 
-type InitialTestType = typeof initialState;
+type InitialStateType = typeof initialState;
 
 export type TestsReducerActions =
    | ReturnType<typeof setIndexesOfUserAnswers>
@@ -105,7 +105,7 @@ export type Question = {
    id: string;
    questionText: string;
    answerOptions: string[];
-   rightIndexesOfAnswers: number[];
+   rightIndexesOfAnswers: number[]; // string[]
    indexesOfUserAnswers: number[];
    isAnswer: boolean;
    isAnswerRight: boolean | null;

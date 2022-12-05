@@ -22,8 +22,9 @@ export const TableOfWrongAnswers = (): ReturnComponentType => {
                return (
                   <tr key={answer.questionNumber}>
                      <td className={styles.number}>{answer.questionNumber}</td>
-                     <td>
-                        <img src={circleWrong} alt="red circle" /> {answer.wrongAnswer.join('; ')}.
+                     <td className={styles.answers}>
+                        <img className={styles.img} src={circleWrong} alt="red circle" />{' '}
+                        {answer.wrongAnswer.join('; ')}.
                      </td>
                   </tr>
                );
